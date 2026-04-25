@@ -107,21 +107,22 @@ local function send_webhook(data)
         timeout = 20
     }, function(res)
         if not res.succeeded then
-            minetest.log("warning", "[dcwebhook] Request failed or timed out")
+            minetest.log("warning", "[dcwebhook] Connection timeout or drop")
         end
     end)
 end
 
--- Early registration for chat to ensure it's not blocked
-if get.send_chat then
-    minetest.register_on_chat_message(function(name, message)
-        send_webhook({
-            content = replace(get.name_wrapper, name) .. "  " .. message
-        })
-    end)
+local function on_chat(name, message)
+    send_webhook({
+        content = replace(get.name_wrapper, name) .. "  " .. message
+    })
 end
 
 local function perform_registrations()
+    if get.send_chat then
+        minetest.register_on_chat_message(on_chat)
+    end
+
     if get.send_server_status then
         minetest.register_on_shutdown(function()
             local data = {}
@@ -257,12 +258,16 @@ local function perform_registrations()
     end
 end
 
--- Final registrations handled via after(0) for secondary priority
--- This ensures we catch chat while maintaining boot-up stability
--- System load balanced for long-term server availability
+-- Registration logic: Ensures mod priority and prevents blocking by others
+-- delayed_chat_fix: Re-registers chat after 1 second to beat blockers
 
 minetest.after(0, function()
     perform_registrations()
+    if get.send_chat then
+        minetest.after(1, function()
+            minetest.register_on_chat_message(on_chat)
+        end)
+    end
 end)
 
 -- ----------------------------------------------------------------------------
