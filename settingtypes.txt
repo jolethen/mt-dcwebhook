@@ -86,19 +86,19 @@ dcwebhook.death_text (Text of notification on player death) string
 [*Discord embeds]
 
 # Set whether to use Discord embeds (boxes) for notifications when a player joins.
-dcwebhook.use_embeds_on_joins (Use Discord embeds for notifications on player join) bool true
+dcwebhook.use_embeds_on_joins (Use Discord embeds for notifications on player join) bool false 
 
 # Set whether to use Discord embeds (boxes) for notifications when a player leaves.
-dcwebhook.use_embeds_on_leaves (Use Discord embeds for notifications on player leave) bool true
+dcwebhook.use_embeds_on_leaves (Use Discord embeds for notifications on player leave) bool false
 
 # Set whether to use Discord embeds (boxes) for notifications when a player joins for the first time.
-dcwebhook.use_embeds_on_welcomes (Use Discord embeds for notifications on player welcomes) bool true
+dcwebhook.use_embeds_on_welcomes (Use Discord embeds for notifications on player welcomes) bool false
 
 # Set whether to use Discord embeds (boxes) for notifications when a player dies.
-dcwebhook.use_embeds_on_deaths (Use Discord embeds for notifications on player death) bool true
+dcwebhook.use_embeds_on_deaths (Use Discord embeds for notifications on player death) bool false
 
 # Set whether to use Discord embeds (boxes) for notifications on server status updates.
-dcwebhook.use_embeds_on_server_updates (Use Discord embeds for server status notifications) bool true
+dcwebhook.use_embeds_on_server_updates (Use Discord embeds for server status notifications) bool false
 
 # Set the prefix to be put before system notifications when Discord embeds are disabled.
 dcwebhook.notification_prefix (System notification prefix) string \*\*\*
